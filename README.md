@@ -5,7 +5,7 @@ Shared connector + observability library for the HRB chatbot microservices split
 ## For reviewers / new team members (5 minutes)
 
 1. [Consumption architecture](../docs/architecture/diagrams/hrb-common-libs-consumption-architecture.drawio) - who depends on this and why a git-tag pin, not a floating branch or 10+ separate PyPI packages.
-2. The extras table below - what each real consumer actually installs.
+2. The extras table below - what each consumer actually installs.
 3. `ROADMAP.md` - all 17 build phases, if you want the full history.
 
 ## Install (as a consumer, not for local dev of this repo itself)
@@ -32,11 +32,11 @@ pip install "git+https://github.com/rvsree/hrb_common_libs.git@v0.4.0#egg=hrb_co
 | `email` | `boto3` |
 | `ci` | `PyGithub` |
 
-(`dev` is a 12th group - `pytest`/`pytest-asyncio`/`respx`, test-only, not a product extra.) Every extra implicitly pulls in `observability` too - every real consumer gets structured logging and Secrets Manager access regardless of which extras it picks.
+(`dev` is a 12th group - `pytest`/`pytest-asyncio`/`respx`, test-only, not a product extra.) Every extra implicitly pulls in `observability` too - every consumer gets structured logging and Secrets Manager access regardless of which extras it picks.
 
 ## Status, 2026-10-23: all 17 phases built, tagged v0.4.0, in real production use
 
-Used by every other repo in this split (`hrb_api_gateway_service`, `hrb_platform_components`, `hrb_rag_ingestion_service`, `hrb_rag_retrieval_service`) - one git-tag-pinned version for everyone, never a floating dependency. Confirmed live: `Secrets Manager + request_id middleware` (Phase 17) is in real use by `hrb_rag_ingestion_service`'s own Lambda, confirmed working in production.
+Used by every other repo in this split (`hrb_api_gateway_service`, `hrb_platform_components`, `hrb_rag_ingestion_service`, `hrb_rag_retrieval_service`) - one git-tag-pinned version for everyone, never a floating dependency. Confirmed live: `Secrets Manager + request_id middleware` (Phase 17) is in active use by `hrb_rag_ingestion_service`'s own Lambda, confirmed working in production.
 
 ## Documentation index
 
@@ -46,4 +46,4 @@ Used by every other repo in this split (`hrb_api_gateway_service`, `hrb_platform
 | [Build + publish process](../docs/deployment-and-ops/build-and-deploy/07-hrb-common-libs-build-and-publish.html) | Git-tag release model, step-by-step - no Docker, no App Runner, deliberately |
 | [`platform-overview.html`](../docs/architecture/platform-overview.html) | The cross-service hub - business capabilities, all 7 repos, one diagram |
 
-Older paths under `docs/dev-reference/common-libs-connectors/` (no `hrb_chatbot_v3/` prefix) referenced in earlier commits are stale - that folder was reorganized 2026-10-23, and the links above reflect the real current location.
+Older paths under `docs/dev-reference/common-libs-connectors/` (no `hrb_chatbot_v3/` prefix) referenced in earlier commits are stale - that folder was reorganized 2026-10-23, and the links above reflect the current location.
