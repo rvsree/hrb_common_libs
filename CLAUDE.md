@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Shared connector + observability library for the HRB chatbot microservices split. One Python package, ten independently-installable extras (`observability`, `db`, `cache`, `llm`, `mcp`, `storage`, `web`, `auth`, `email`, `ci`), extracted from `hrb_chatbot_v2`'s own `common/clients/` folders. A service installs only the extras it actually needs - `pip install "hrb-common-libs[db,cache]"` never pulls in `openai`, `mcp`, or `boto3`.
+Shared connector + observability library for the HRB chatbot microservices split. One Python package, ten independently-installable extras (`observability`, `db`, `cache`, `llm`, `mcp`, `storage`, `web`, `auth`, `email`, `ci`), extracted from `hrb_chatbot_v2`'s own `common/clients/` folders. A service installs only the extras it actually needs - `pip install "hrb_common_libs[db,cache]"` never pulls in `openai`, `mcp`, or `boto3`.
 
 Full design rationale, the dependency matrix (which service needs which extra), and the `pyproject.toml` sketch live in `hrb_chatbot_v2`'s own `docs/dev-reference/common-libs-connectors/` doc set (Overview/Spec/Architecture/Design/Decisions) - read that before changing anything here. This repo implements that design; it doesn't re-derive it.
 
