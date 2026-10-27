@@ -52,7 +52,7 @@ Phase-by-phase plan and history, same convention as `hrb_chatbot_v2`'s `docs/age
     - **Source:** new code.
     - **API surface:** `get_redis_client(url=None)`, `build_cache_key(service, purpose, content_hash)`.
     - **Behavior parity:** N/A - new code.
-    - **Out of scope:** no `AnswerCache`/`EmbeddingCache` classes - those stay in `rag_retrieval_service`/`rag_ingestion_service`.
+    - **Out of scope:** no `AnswerCache`/`EmbeddingCache` classes - those stay in `hrb_rag_retrieval_service`/`hrb_rag_ingestion_service`.
     - **Open questions:** none blocking.
 
 - [x] **Phase 4 (done) — llm extra.** Extraction of `llm_client/`'s generic provider-abstraction pieces: `base_llm_client.py`, `openai_client.py` (chat + embeddings), `open_router_client.py`. **Deferred, not forgotten:** `anthropic_client.py`, `bedrock_client.py`, `langchain_chat_model.py` - same pattern, ported in a fast-follow rather than rushed into this pass.
@@ -70,7 +70,7 @@ Phase-by-phase plan and history, same convention as `hrb_chatbot_v2`'s `docs/age
     - **Source:** `mcp_tools/__init__.py`'s session-open/tool-call shape, generalized (no leave-balance-specific keywords).
     - **API surface:** `call_mcp_tool(server_url, tool_name, arguments, access_token=None) -> dict`, `list_mcp_tools(server_url, access_token=None) -> list[dict]`.
     - **Behavior parity:** N/A - generalized, not a literal port.
-    - **Out of scope:** keyword-based query routing (stays in `rag_retrieval_service`). Postgres-backed per-server circuit breaker (superseded by the generic one).
+    - **Out of scope:** keyword-based query routing (stays in `hrb_rag_retrieval_service`). Postgres-backed per-server circuit breaker (superseded by the generic one).
     - **Open questions:** none blocking.
 
 - [x] **Phase 6 (done) — storage extra.** NOT a full extraction of `s3_upload_client.py` (most of its functions are leave-document/admin-doc business logic with hardcoded bucket conventions). New, generic code: presigned upload/download URL generation and object delete, parameterized by bucket - the business-specific wrappers (`generate_leave_document_upload_url`, etc.) stay in whichever service owns that feature.
@@ -79,7 +79,7 @@ Phase-by-phase plan and history, same convention as `hrb_chatbot_v2`'s `docs/age
     - **Source:** `s3_upload_client.py`'s `generate_presigned_upload_url`/`generate_presigned_download_url`/`delete_object` shape, parameterized (bucket passed in, not read from a specific env var name).
     - **API surface:** `generate_presigned_upload_url(bucket, key, content_type, expiry_seconds=300)`, `generate_presigned_download_url(bucket, key, expiry_seconds=300)`, `delete_object(bucket, key)`.
     - **Behavior parity:** N/A - generalized (parameterized bucket instead of hardcoded env var names).
-    - **Out of scope:** leave-document/admin-doc specific functions, the local-reprocessing download path - all business-specific, stay in `rag_ingestion_service`.
+    - **Out of scope:** leave-document/admin-doc specific functions, the local-reprocessing download path - all business-specific, stay in `hrb_rag_ingestion_service`.
     - **Open questions:** none blocking.
 
 - [x] **Phase 7 (done) — web extra.** Direct extraction of `web_client/tavily_client.py` - fully generic, no business logic, ported as-is.
